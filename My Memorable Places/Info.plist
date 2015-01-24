@@ -34,5 +34,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We want to help you save favorite places.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We want you to always have access to your places.</string>
 </dict>
 </plist>

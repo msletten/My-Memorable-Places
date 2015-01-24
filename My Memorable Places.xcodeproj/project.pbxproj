@@ -13,6 +13,9 @@
 		08CE2FCE1A71C9B000D59068 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08CE2FCC1A71C9B000D59068 /* Main.storyboard */; };
 		08CE2FD01A71C9B000D59068 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08CE2FCF1A71C9B000D59068 /* Images.xcassets */; };
 		08CE2FDC1A71C9B000D59068 /* My_Memorable_PlacesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE2FDB1A71C9B000D59068 /* My_Memorable_PlacesTests.swift */; };
+		08CE2FE61A71CB9100D59068 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CE2FE51A71CB9100D59068 /* CoreLocation.framework */; };
+		08CE2FE81A71CB9700D59068 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CE2FE71A71CB9700D59068 /* MapKit.framework */; };
+		08CE2FEA1A73073A00D59068 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE2FE91A73073A00D59068 /* PlacesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,9 @@
 		08CE2FD51A71C9B000D59068 /* My Memorable PlacesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My Memorable PlacesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CE2FDA1A71C9B000D59068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08CE2FDB1A71C9B000D59068 /* My_Memorable_PlacesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_Memorable_PlacesTests.swift; sourceTree = "<group>"; };
+		08CE2FE51A71CB9100D59068 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		08CE2FE71A71CB9700D59068 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		08CE2FE91A73073A00D59068 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08CE2FE81A71CB9700D59068 /* MapKit.framework in Frameworks */,
+				08CE2FE61A71CB9100D59068 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +67,8 @@
 		08CE2FB71A71C9B000D59068 = {
 			isa = PBXGroup;
 			children = (
+				08CE2FE71A71CB9700D59068 /* MapKit.framework */,
+				08CE2FE51A71CB9100D59068 /* CoreLocation.framework */,
 				08CE2FC21A71C9B000D59068 /* My Memorable Places */,
 				08CE2FD81A71C9B000D59068 /* My Memorable PlacesTests */,
 				08CE2FC11A71C9B000D59068 /* Products */,
@@ -79,6 +89,7 @@
 			children = (
 				08CE2FC51A71C9B000D59068 /* AppDelegate.swift */,
 				08CE2FCA1A71C9B000D59068 /* ViewController.swift */,
+				08CE2FE91A73073A00D59068 /* PlacesTableViewController.swift */,
 				08CE2FCC1A71C9B000D59068 /* Main.storyboard */,
 				08CE2FCF1A71C9B000D59068 /* Images.xcassets */,
 				08CE2FC71A71C9B000D59068 /* My_Memorable_Places.xcdatamodeld */,
@@ -212,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08CE2FCB1A71C9B000D59068 /* ViewController.swift in Sources */,
+				08CE2FEA1A73073A00D59068 /* PlacesTableViewController.swift in Sources */,
 				08CE2FC91A71C9B000D59068 /* My_Memorable_Places.xcdatamodeld in Sources */,
 				08CE2FC61A71C9B000D59068 /* AppDelegate.swift in Sources */,
 			);
