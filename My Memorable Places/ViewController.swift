@@ -18,7 +18,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBAction func findMeButton(sender: AnyObject) {
         placeLocation.requestWhenInUseAuthorization()
         placeLocation.startUpdatingLocation()
-        println(placeLocation)
+        //println(placeLocation)
     }
     
     var placeLocation:CLLocationManager!
@@ -26,13 +26,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let lat = NSString(string: myPlacesArray[activePlace]["lat"]).doubleValue
-        let lon = NSString(string: myPlacesArray[activePlace]["lon"]).doubleValue
-        
         placeLocation = CLLocationManager()
         placeLocation.delegate = self
         placeLocation.desiredAccuracy = kCLLocationAccuracyBest
+        //to add places to the map
+        if activePlace == -1 {
+            placeLocation.requestWhenInUseAuthorization()
+            placeLocation.startUpdatingLocation()
+            
+        } else {
         
+        let lat = NSString(string: myPlacesArray[activePlace]["lat"]).doubleValue
+        let lon = NSString(string: myPlacesArray[activePlace]["lon"]).doubleValue
         
         //placesMap setup for picking a starting location
 //        var placeLatitude:CLLocationDegrees = 45.090369
@@ -48,23 +53,83 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         var placesMapRegion:MKCoordinateRegion = MKCoordinateRegionMake(placesMapLocation, placesMapSpan)
         
         myPlacesMap.setRegion(placesMapRegion, animated: true)
-        
-        //to add places to the map
-        
         //add annotations
-        var startLocation = MKPointAnnotation()
-        startLocation.coordinate = placesMapLocation
-        startLocation.title = (string: myPlacesArray[activePlace]["name"])
-        myPlacesMap.addAnnotation(startLocation)
-        
+        var placeLocation = MKPointAnnotation()
+        placeLocation.coordinate = placesMapLocation
+        placeLocation.title = myPlacesArray[activePlace]["name"]
+        myPlacesMap.addAnnotation(placeLocation)
+        }
+        var longPress = UILongPressGestureRecognizer(target: self, action: "action:")
+        longPress.minimumPressDuration = 2.0
+        myPlacesMap.addGestureRecognizer(longPress)
         //println(activePlace)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
-        if segue.identifier == "back" {
-            self.navigationController.navigationBarHidden = false
+    func action(gestureRecognizer:UIGestureRecognizer) {
+        if gestureRecognizer.state  == UIGestureRecognizerState.Began {
+        //println("You pressed me babe")
+        var userTouch = gestureRecognizer.locationInView(self.myPlacesMap)
+        var newCoordinates = myPlacesMap.convertPoint(userTouch, toCoordinateFromView: self.myPlacesMap)
+//        var newLocation = MKPointAnnotation()
+//        newLocation.coordinate = newCoordinates
+//        newLocation.title = "new place"
+//        myPlacesMap.addAnnotation(newLocation)
+        
+        var newPlaceLocation = CLLocation(latitude: newCoordinates.latitude, longitude: newCoordinates.longitude)
+        
+        CLGeocoder().reverseGeocodeLocation(newPlaceLocation, completionHandler:{(placemarks, error) in
+            if (error) {println("Error: \(error)")}
+            else {
+                //println(placemarks)
+                let p = CLPlacemark(placemark: placemarks?[0] as CLPlacemark)
+                var subLocality:String
+                var street:String
+                var subAdmin:String
+                
+                if (p.subLocality != nil) {
+                    subLocality = p.subLocality
+                }
+                else {
+                    subLocality = ""
+                }
+                if (p.thoroughfare != nil) {
+                    street = p.thoroughfare
+                }
+                else {
+                    street = ""
+                }
+                if (p.subAdministrativeArea != nil) {
+                    subAdmin = p.subAdministrativeArea
+                }
+                else {
+                    subAdmin = ""
+                }
+                //self.addressLabel.text = "\(place.subLocality)\n\(addressNumber) \(place.thoroughfare)\n\(place.subAdministrativeArea), \(place.administrativeArea)\n\(place.country)"
+                var newLocation = MKPointAnnotation()
+                newLocation.coordinate = newCoordinates
+                var placeTitle = "\(street) \(subLocality) \(subAdmin)"
+                if placeTitle == "  " {
+                    var addDate = NSDate.date()
+                    self.title = "Unknown Location added \(addDate)"
+                }
+                newLocation.title = placeTitle
+                self.myPlacesMap.addAnnotation(newLocation)
+                myPlacesArray.append(["name":placeTitle,"lat":"\(newCoordinates.latitude)","lon":"\(newCoordinates.longitude)"])
+                println(newLocation)
+            }
+        })
         }
     }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController.navigationBarHidden = false
+    }
+    
+//    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+//        if segue.identifier == "back" {
+//            self.navigationController.navigationBarHidden = false
+//        }
+//    }
     
     func locationManager(placeLocation: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var userNewLocation:CLLocation = locations[0] as CLLocation

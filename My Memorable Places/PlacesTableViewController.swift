@@ -26,20 +26,32 @@ class PlacesTableViewController: UITableViewController {
         if myPlacesArray.count == 1 {
             myPlacesArray.removeAtIndex(0)
         }
+        if myPlacesArray.count == 0 {
         myPlacesArray.append(["name":"Taj Mahal","lat":"27.176065","lon":"78.042198"])
-        println(myPlacesArray)
+        }
+        //println(myPlacesArray)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //below we allow the default view to not be hidden and user can go from table view and map view in a roundtrip
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController.navigationBarHidden = true
+    }
+    //this sets the array starting position at 1 before 0
+    override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+        if segue.identifier == "addPlace" {
+            activePlace = -1
+        }
+    }
     
     override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         
         activePlace = indexPath.row
         //this allows us to high the default nav bar and use our custom one
-        self.navigationController.navigationBarHidden = true
+        //self.navigationController.navigationBarHidden = true
         self.performSegueWithIdentifier("findPlace", sender: indexPath)
     }
 

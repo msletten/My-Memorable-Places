@@ -83,7 +83,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Places" id="h41-hJ-wUZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yXA-pW-mqR"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yXA-pW-mqR">
+                            <connections>
+                                <segue destination="vXZ-lx-hvc" kind="show" identifier="addPlace" id="eiL-wO-wRF"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4">
@@ -122,4 +126,7 @@
             <point key="canvasLocation" x="140" y="775"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eiL-wO-wRF"/>
+    </inferredMetricsTieBreakers>
 </document>
